@@ -17,4 +17,14 @@ export class LogEntity {
       this.createAt = new Date();
    }
 
+   static fromJson  = ( json: string ): LogEntity => {
+      const { message, level, createdAt } =  JSON.parse(json);
+      if ( !message ) throw new Error('Message is required');
+      if ( !level ) throw new Error('Level is required');
+
+      const log = new LogEntity(level, message);
+      log.createAt = new Date( createdAt );
+      return log;
+   }
+
 }
