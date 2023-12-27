@@ -4,7 +4,7 @@ import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository
 import { CronService } from './cron/cron-service';
 
 const fileSystemLogRepository =  new LogRepositoryImpl(
-   new FileSystemDataSource
+   new FileSystemDataSource()
 );
 
 export class Server {
