@@ -1,4 +1,5 @@
 import { CheckService } from '../domain/use-cases/checks/checks-service';
+import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { FileSystemDataSource } from '../infrastructure/datasources/file-system.datasource';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
 import { CronService } from './cron/cron.service';
@@ -8,6 +9,8 @@ const fileSystemLogRepository =  new LogRepositoryImpl(
    new FileSystemDataSource()
 );
 
+const emailService = new EmailService();
+
 export class Server {
    constructor() {
    }
@@ -15,7 +18,14 @@ export class Server {
    public static start(){
       console.log('<--------------- JK Server --------------->');
       console.log('Server started');
-      const emailService = new EmailService();
+
+      new SendEmailLogs(
+         emailService,
+         fileSystemLogRepository
+      ).execute(
+         ['javikogutierrez64@gmail.com', 'javigutierrez64@hotmail.es']
+      )
+      // const emailService = new EmailService( fileSystemLogRepository );
       // emailService.sendEmail({
       //    to: 'javikogutierrez64@gmail.com',
       //    subject: 'Logs system',
