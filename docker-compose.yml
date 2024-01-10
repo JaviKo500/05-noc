@@ -11,5 +11,5 @@ services:
       - ./mongo:/data/db
 
     ports:
-      - 27017:20017
+      - 27018:27017
     
