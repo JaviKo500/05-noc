@@ -19,12 +19,12 @@ export class Server {
       console.log('<--------------- JK Server --------------->');
       console.log('Server started');
 
-      new SendEmailLogs(
-         emailService,
-         fileSystemLogRepository
-      ).execute(
-         ['javikogutierrez64@gmail.com', 'javigutierrez64@hotmail.es']
-      )
+      // new SendEmailLogs(
+      //    emailService,
+      //    fileSystemLogRepository
+      // ).execute(
+      //    ['javikogutierrez64@gmail.com', 'javigutierrez64@hotmail.es']
+      // )
       // const emailService = new EmailService( fileSystemLogRepository );
       // emailService.sendEmail({
       //    to: 'javikogutierrez64@gmail.com',
