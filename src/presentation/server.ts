@@ -1,6 +1,8 @@
+import { LogSeverityLevel } from '../domain/entities/log.entity';
 import { CheckService } from '../domain/use-cases/checks/checks-service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { FileSystemDataSource } from '../infrastructure/datasources/file-system.datasource';
+import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
 import { CronService } from './cron/cron.service';
 import { EmailService } from './email/email.service';
@@ -9,13 +11,17 @@ const fileSystemLogRepository =  new LogRepositoryImpl(
    new FileSystemDataSource()
 );
 
+const mongoDbRepository = new LogRepositoryImpl(
+   new MongoLogDataSource()
+);
+
 const emailService = new EmailService();
 
 export class Server {
    constructor() {
    }
 
-   public static start(){
+   public static async start(){
       console.log('<--------------- JK Server --------------->');
       console.log('Server started');
 
@@ -41,7 +47,8 @@ export class Server {
          () => {
             const url = 'https://google.com';
             new CheckService(
-               fileSystemLogRepository,
+               // fileSystemLogRepository,
+               mongoDbRepository,
                () => console.log(`success url: ${url}`),
                (error) => console.log(error),
             ).execute( url );
