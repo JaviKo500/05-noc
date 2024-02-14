@@ -1,3 +1,5 @@
+import { SeverityLevel } from "@prisma/client";
+
 export enum LogSeverityLevel {
    low = 'low',
    medium = 'medium',

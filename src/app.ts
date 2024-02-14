@@ -10,5 +10,9 @@ async function main() {
    await MongoDataBase.connect({
       mongoUrl: envs.MONGO_URL,
       dbName: envs.MONGO_DB_NAME,
-   });
+   })
+
+   await Server.start();
+   // console.log('<--------------- JK App --------------->');
+   // console.log(envs);
 }
