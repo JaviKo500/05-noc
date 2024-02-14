@@ -4,5 +4,7 @@ logs/
 mongo/
 postgres/
 pg-data/
-
+mongo-test/
+coverage/
+postgres-test/
 .env
