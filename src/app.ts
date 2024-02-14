@@ -12,7 +12,7 @@ async function main() {
       dbName: envs.MONGO_DB_NAME,
    })
 
-   await Server.start();
+   // await Server.start();
    // console.log('<--------------- JK App --------------->');
    // console.log(envs);
 }
