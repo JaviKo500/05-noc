@@ -1,9 +1,10 @@
 import { LogSeverityLevel } from '../domain/entities/log.entity';
 import { CheckService } from '../domain/use-cases/checks/checks-service';
+import { CheckServiceMultiple } from '../domain/use-cases/checks/checks-service-multiple';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { FileSystemDataSource } from '../infrastructure/datasources/file-system.datasource';
 import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
-import { PostgresLogDataSource } from '../infrastructure/datasources/postgre-log.datasource';
+import { PostgresLogDataSource } from '../infrastructure/datasources/postgres-log.datasource';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
 import { CronService } from './cron/cron.service';
 import { EmailService } from './email/email.service';
@@ -11,6 +12,16 @@ import { EmailService } from './email/email.service';
 const logRepository =  new LogRepositoryImpl(
    // new FileSystemDataSource()
    // new MongoLogDataSource()
+   new PostgresLogDataSource()
+);
+
+const logFileSystemRepository =  new LogRepositoryImpl(
+   new FileSystemDataSource()
+);
+const logMongoRepository =  new LogRepositoryImpl(
+   new MongoLogDataSource()
+);
+const logPostgresRepository =  new LogRepositoryImpl(
    new PostgresLogDataSource()
 );
 
@@ -55,5 +66,20 @@ export class Server {
             // new CheckService().execute('http://localhost:3000');
          }
       );
+
+      // CronService.createJob( 
+      //    '*/5 * * * * *',  
+      //    () => {
+      //       const url = 'https://google_test.com';
+      //       new CheckServiceMultiple(
+      //          // fileSystemLogRepository,
+      //          // mongoDbRepository,
+      //          [ logFileSystemRepository, logMongoRepository, logPostgresRepository ],
+      //          () => console.log(`success url: ${url}`),
+      //          (error) => console.log(error),
+      //       ).execute( url );
+      //       // new CheckService().execute('http://localhost:3000');
+      //    }
+      // );
    }
 }
