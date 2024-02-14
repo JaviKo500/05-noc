@@ -12,11 +12,8 @@ export class MongoDataBase {
          await mongoose.connect( mongoUrl, {
             dbName,
          });
-         console.log('<--------------- JK Init --------------->');
-         console.log('mongo connection established');
+         return true;
       } catch (error) {
-         console.log('<--------------- JK Init error--------------->');
-         console.log(error);
          throw error;
       }
    }
