@@ -16,12 +16,13 @@ services:
     image: postgres:15.3
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_DB_NAME} 
-      POSTGRES_DB: ${POSTGRES_USER}
+      POSTGRES_USER: ${POSTGRES_USER} 
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      PGDATA: /var/lib/postgresql/data/postgresqltest/
     volumes:
-      # - ./postgres:/var/lib/postgresql/data/pgdata
-      - ./postgresql.conf:/etc/postgresql.conf
-      - ./pg-data:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql/data/pgdata
+      # - ./postgresql.conf:/etc/postgresql.conf
+      # - ./pg-data:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5432:5432
