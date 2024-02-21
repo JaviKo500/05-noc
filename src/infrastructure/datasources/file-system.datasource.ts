@@ -20,9 +20,9 @@ export class FileSystemDataSource implements LogDataSource {
       }
 
       [
-         this.allLogsPath,
          this.mediumLogsPath,
-         this.highLogsPath
+         this.highLogsPath,
+         this.allLogsPath,
       ].forEach( path => {
          if( fs.existsSync( this.allLogsPath)) return;
          fs.writeFileSync( path, '' );
@@ -47,6 +47,7 @@ export class FileSystemDataSource implements LogDataSource {
       if ( content === '' ) return [];
 
       const logs: LogEntity[] = content.split( '\n' ).map(LogEntity.fromJson);
+      
       return logs;
    }
    async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
