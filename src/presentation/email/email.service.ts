@@ -10,7 +10,7 @@ export interface SendEmailOptions {
    attachments?: Attachment[];
 }
 
-interface Attachment {
+export interface Attachment {
    filename: string;
    path: string;
 }
@@ -38,16 +38,14 @@ export class EmailService {
 
    sendEmail = async ( options: SendEmailOptions ): Promise<boolean> => {
       const { to, subject, htmlBody, attachments = [] } = options;
-      const sentInformation = await this.transport.sendMail({
-         to, 
-         subject,
-         html: htmlBody,
-         attachments
-      });
-      console.log('<--------------- JK Email.service --------------->');
-      console.log(sentInformation);
-
       try {
+         if( to.length === 0 ) throw new Error('To not be empty');
+         const sentInformation = await this.transport.sendMail({
+            to, 
+            subject,
+            html: htmlBody,
+            attachments
+         });
          return true;
       } catch (error) {
          return false;
